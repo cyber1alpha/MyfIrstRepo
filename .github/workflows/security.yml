@@ -1,4 +1,4 @@
-name: YOLO
+name:   DAST Scan using OWASP ZAP
 on: [push]
 
 jobs:
