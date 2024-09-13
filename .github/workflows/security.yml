@@ -3,7 +3,7 @@ name: Simple CI/CD Pipelin
 on:
   push:
     branches:
-      - master  # This workflow runs on pushes to the master branch
+      - main  # This workflow runs on pushes to the master branch
 
 jobs:
   test:
