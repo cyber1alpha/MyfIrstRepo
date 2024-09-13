@@ -1,20 +1,56 @@
-name:   DAST Scan using OWASP ZAP
-on: [push]
+name: Simple CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master  # This workflow runs on pushes to the master branch
 
 jobs:
-  zap_scan:
-    permissions: write-all
+  test:
     runs-on: ubuntu-latest
-    name: Scan the web application
+    name: Test Stage
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: main
-      - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.10.0
-        with:
-          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
-          target: 'http://testphp.vulnweb.com/'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Echo Test Stage
+        run: echo "This is the Test stage"
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    name: Build Stage
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Echo Build Stage
+        run: echo "This is the Build stage"
+
+  design:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Design Stage
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Echo Design Stage
+        run: echo "This is the Design stage"
+
+  maintain:
+    needs: design
+    runs-on: ubuntu-latest
+    name: Maintain Stage
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Echo Maintain Stage
+        run: echo "This is the Maintain stage"
+
+  deploy:
+    needs: maintain
+    runs-on: ubuntu-latest
+    name: Deploy Stage
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Echo Deploy Stage
+        run: echo "This is the Deploy stage"
